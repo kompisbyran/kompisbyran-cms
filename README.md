@@ -14,14 +14,14 @@
  9. In another terminal, run: `python src/app.py` or `make run`
 
 
- ## Oderland
+## Oderland
 
 On Oderland you have to specify the dependencies for the project in the web GUI for the python app. The environment variables are specified in the
 .bashrc file. Pushing to Oderland is done through CircleCI and that is done with the commands `make production` and `make deploy` which you can see in circle.yml.
 
 When the code is deployed you need to restart the python app in Oderlands web GUI.
 
- ## Mail integration
+## Mail integration
 
 Mails sent to hej@kompisbyran.se will be parsed to create and upload a meetup to Contentful. If several images are present in the email, the largest will be used.
 Both the image and the meetup itself must be published before it is shown on the webpage. No email may exceed 30Mb in size, or it will be ignored.
