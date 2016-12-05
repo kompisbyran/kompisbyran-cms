@@ -1,0 +1,335 @@
+@import "fonts";
+
+//general
+$meetup-tilt: 2deg;
+
+//colors
+$color_grey: #F0F0F0;
+$color_dark_grey: #BBBBBB;
+$color_light_neptune: rgb(185, 221, 223);
+$color_neptune: #71BBC0;
+$color_white: #FFFFFF;
+$color_dark_neptune: #215867;
+$color_coral: #F56864;
+$color_font: #191919;
+$color_red: #F46661;
+$transparent_div: rgba(240,240,240,0.9);
+$preview-background: #21304A;
+
+//fonts
+$font_droid_sans: Droid Sans, sans-serif;
+$font_amatic: amatic-sc;
+$font_chaparral: chaparral-regular;
+$font_open_sans: opensans;
+
+//desktop sizes
+$font_size_h1_l: 3.429em;
+$font_size_h2_l: 1.714em;
+$font_size_h3_l: 1.429em;
+$font_size_p_l: 1.143em;
+$font_size_a_l: 1.286em;
+$font_size_button_l: 1.286em;
+//tablet sizes
+$font_size_h1_m: 2.571em;
+$font_size_h2_m: 1.429em;
+$font_size_h3_m: 1.286em;
+$font_size_p_m: 1em;
+$font_size_a_m: 1.143em;
+$font_size_button_m: 1em;
+//mobile sizes
+$font_size_h1_s: 2.429em;
+$font_size_h2_s: 1.429em;
+$font_size_h3_s: 1.286em;
+$font_size_p_s: 1em;
+$font_size_a_s: 1.143em;
+$font_size_button_s: 1em;
+
+//media queries
+$mobile_width_small_portrait: 320px;
+$mobile_width_portrait: 412px;
+$mobile_width_threshold: 768px;
+$tablet_width_threshold: 1080px;
+$desktop_width_threshold: 1440px;
+
+//shadow settings
+$shadow_v_standard: 2px;
+$shadow_h_standard: 2px;
+$shadow_blur_standard: 10px;
+$shadow_color: #BBBBBB;
+
+//General mixins
+
+@mixin min-device-width($width) {
+    @media (min-width: $width) {
+        @content;
+    }
+}
+
+@mixin max-device-width($width) {
+    @media (max-width: $width) {
+        @content;
+    }
+}
+
+@mixin between-device-width($min, $max) {
+    @media (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}
+
+@mixin rotate($degrees) {
+    -ms-transform: rotate($degrees);
+    -webkit-transform: rotate($degrees);
+    transform: rotate($degrees);
+}
+
+@mixin shadow ($h_shadow, $v_shadow, $blur, $color) {
+    -moz-box-shadow: $h_shadow $v_shadow $blur $color;
+    -webkit-box-shadow: $h_shadow $v_shadow $blur $color;
+    box-shadow: $h_shadow $v_shadow $blur $color;
+}
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex_direction($direction) {
+    -webkit-flex-direction: $direction;
+    -moz-flex-direction: $direction;
+    -ms-flex-direction: $direction;
+    flex-direction: $direction;
+}
+
+//General elements and scss
+
+.content {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1440px;
+    margin-top: 100px;
+
+    @include max-device-width($mobile_width_threshold){
+        margin-top: 70px;
+    }
+
+    @include max-device-width($tablet_width_threshold){
+        margin: inherit 0;
+        padding: inherit 0;
+    }
+}
+
+body {
+    font-family: opensans;
+    font-size: 14px;
+    color: #333333;
+    background-color: #fff;
+}
+
+h1 {
+    font-family: $font_amatic;
+    font-size: $font_size_h1_l;
+    font-weight: bold;
+    color: $color_dark_neptune;
+    @include max-device-width($tablet_width_threshold){
+        font-size: $font_size_h1_m;
+    }
+    @include max-device-width($mobile_width_threshold){
+        font-size: $font_size_h1_s;
+    }
+}
+
+h2 {
+    font-family: $font_chaparral;
+    font-size: $font_size_h2_l;
+    font-style: italic;
+    color: $color_dark_neptune;
+    @include max-device-width($tablet_width_threshold){
+        font-size: $font_size_h2_m;
+    }
+    @include max-device-width($mobile_width_threshold){
+        font-size: $font_size_h2_s;
+    }
+}
+
+h3 {
+    font-family: $font_chaparral;
+    font-size: $font_size_h3_l;
+    font-style: italic;
+    color: $color_dark_neptune;
+    @include max-device-width($tablet_width_threshold){
+        font-size: $font_size_h3_m;
+    }
+    @include max-device-width($mobile_width_threshold){
+        font-size: $font_size_h3_s;
+    }
+}
+
+p {
+    font-family: $font_open_sans;
+    font-size: $font_size_p_l;
+    color: $color_font;
+    @include max-device-width($tablet_width_threshold){
+        font-size: $font_size_p_m;
+    }
+    @include max-device-width($mobile_width_threshold){
+        font-size: $font_size_p_s;
+    }
+}
+
+a {
+    font-family: $font_open_sans;
+    font-size: $font_size_a_l;
+    color: $color_neptune;
+    @include max-device-width($tablet_width_threshold){
+        font-size: $font_size_a_m;
+    }
+    @include max-device-width($mobile_width_threshold){
+        font-size: $font_size_a_s;
+    }
+}
+
+$matches_font_size_medium: 8.6em;
+$matches_font_size_small: 5.1em;
+
+$matches_bling_size_medium: 100px;
+$matches_bling_size_small: 50px;
+
+@mixin matches-bling-icon () {
+    content: "";
+    display: inline-block;
+    width: $matches_bling_size_medium;
+    height: $matches_bling_size_medium;
+    @include max-device-width($tablet_width_threshold) {
+        width: $matches_bling_size_small;
+        height: $matches_bling_size_small;
+    }
+}
+
+@mixin button() {
+    background-color: $color_neptune;
+    font-family: $font_open_sans;
+    font-weight: 600;
+    font-size: $font_size_button_l;
+    color: $color_white;
+    border: none;
+    border-radius: 50px;
+    margin-top: 15px;
+
+    @include max-device-width($tablet_width_threshold) {
+        font-size: $font_size_button_m;
+    }
+    @include max-device-width($mobile_width_threshold) {
+        font-size: $font_size_button_s;
+    }
+
+    &:hover{
+        background-color: $color_dark_neptune;
+        text-decoration: none;
+        color: $color_white;
+    }
+
+    &:focus{
+        text-decoration: none;
+        color: $color_white;
+        background-color: $color_dark_neptune;
+        outline: none;
+    }
+}
+
+$triangle_size: 12px;
+.pos-triangle {
+    position: absolute;
+    left: 50%;
+}
+.triangle {
+    position: relative;
+    left: -50%;
+    z-index: 50;
+    top: -$triangle_size;
+    width: 0;
+    height: 0;
+    border-left: $triangle_size solid transparent;
+    border-right: $triangle_size solid transparent;
+    border-bottom: $triangle_size solid #F0F0F0;
+}
+
+.general_button{
+    @include button;
+    padding: 10px 40px;
+}
+
+.side-border {
+    border-left: thin solid white;
+    border-right: thin solid white;
+    margin: 0 2em;
+    padding: 0.5em 0.5em;
+}
+
+
+
+.general_page {
+    &__background {
+        background-image: url(/static/images/left-wreath-blue.svg), url(/static/images/right-wreath-blue.svg);
+        background-repeat: no-repeat, no-repeat;
+        background-position: left 70px, right 70px;
+        background-size: 25%;
+        margin-top: 2em;
+        @include min-device-width($tablet_width_threshold + 50px) {
+            width: $tablet-width_threshold - 50px;
+        }
+        @include max-device-width($tablet_width_threshold) {
+            margin-top: 2em;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            margin: 0;
+            padding-top: 110px;
+            background-size: 40%;
+        }
+    }
+    &__title {
+        padding-top: 90px;
+        text-align: center;
+        max-width: 45%;
+        margin: auto;
+    }
+
+    &__text {
+        width: 90%;
+        margin: 60px 0;
+        @include max-device-width($mobile_width_threshold) {
+            width: 100%;
+        }
+        & > p {
+            width: 80%;
+            margin: auto auto;
+
+            & > a {
+                font-family: $font_open_sans;
+                font-size: 1em;
+                color: $color_dark_neptune;
+                @include max-device-width($tablet_width_threshold){
+                    font-size: $font_size_p_m;
+                }
+                @include max-device-width($mobile_width_threshold){
+                    font-size: $font_size_p_s;
+                }
+            }
+        }
+    }
+}
+.general_text > p {
+    & > a {
+        font-family: $font_open_sans;
+        font-size: 1em;
+        @include max-device-width($tablet_width_threshold){
+            font-size: $font_size_p_m;
+        }
+        @include max-device-width($mobile_width_threshold){
+            font-size: $font_size_p_s;
+        }
+    }
+}

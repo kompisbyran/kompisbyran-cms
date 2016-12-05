@@ -1,0 +1,92 @@
+
+
+.newsarchive{
+    text-align: center;
+
+    &__background {
+        background-image: url(/static/images/left-wreath-blue.svg), url(/static/images/right-wreath-blue.svg);
+        background-repeat: no-repeat, no-repeat;
+        background-position: left 70px, right 70px;
+        background-size: 25%;
+        margin-top: 2em;
+        @include min-device-width($tablet_width_threshold + 50px) {
+            width: $tablet-width_threshold - 50px; 
+        }
+        @include max-device-width($tablet_width_threshold) {
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        @include max-device-width($mobile_width_portrait){
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        @include max-device-width($mobile_width_threshold){
+            padding-top: 80px;
+            background-size: 40%;
+        }
+    }
+
+    &__title{
+        padding-top: 80px;
+        max-width: 45%;
+        margin: auto;
+    }
+
+    &__text{
+        margin-top: 70px;
+        padding-bottom: 50px;
+    }
+
+    &__container{
+        text-align: center;
+        background-color: $color_grey;
+        margin-right: 0;
+        margin-left: 0;
+        padding-right: 0;
+        padding-left: 0;
+        width: 100%;   
+        & .news-feed__item__main{
+            @include min-device-width($tablet_width_threshold){
+                width: 50%;
+            }
+        }
+    }
+
+    &__news_container{
+        margin-top: 40px;
+        width: 100%;
+
+    }
+
+    &__news{
+        width: 300px;
+        margin: 10px 10px;
+        display: inline-block;
+        vertical-align: top;
+
+        &_link{
+            &:hover{
+                text-decoration: none;
+            }
+        }
+
+    }
+
+    &__triangle{
+        position: relative;
+        left: 50%;
+        z-index: 50;
+        width: 0;
+        height: 0;
+        border-left: $triangle_size solid transparent;
+        border-right: $triangle_size solid transparent;
+        border-top: $triangle_size solid $color_white;
+    }
+
+    &__subtitle{
+        margin-top: 50px;
+        padding-bottom: 40px;
+    }
+
+}

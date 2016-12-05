@@ -1,0 +1,89 @@
+Indentering:
+    4 spaces
+
+
+Strängkodning:
+    'enkelfnuttar'
+
+
+Namngivning:
+    generellt sett snake_case samt liten bokstav. Klasser med CamelCase samt 
+    stor bokstav. Konstanter i ALL_CAPS samt snake case.
+
+
+import av filer:
+    from fil import *
+
+
+Maximal radlängd:
+    80 tecken
+
+
+Git:
+    Långa commitmeddelanden skrivs med sammanfattning på en rad, sedan 
+    new line och sen en mer ingående beskrivning av commiten.
+
+
+Språk:
+    I koden skrivs allt på engelska. Även commitmeddelanden.
+
+
+paranterser:
+    don't:  if(true):
+    do:     if true:
+
+    don't:  for((x,y) in tuples.items()):
+    do:     for (x,y) in tuples.items():
+
+
+tomma rader:
+    två tomma rader mellan funktion- och klassdefinitioner,
+    enkel tom rad i funktioner där man finner det passande.
+
+
+white spaces:
+    Ej i paranteser osv.
+        Yes: spam(ham[1], {eggs: 2}, [])
+        No:  spam( ham[ 1 ], { eggs: 2 }, [ ] )
+
+    Ej innan komma, kolon, brackets osv.
+        Yes: if x == 4:
+                print x, y
+            x, y = y, x
+        No: if x == 4 :
+                print x , y
+            x , y = y , x
+        Yes: dict['key'] = list[index]
+        No:  dict ['key'] = list [index]
+    Runt operatorer:
+
+        Yes: x == 1
+             x = 1
+        No:  x<1
+
+    Ej för att 'De ser så fint ut':
+        Yes:
+            foo = 1000  # comment
+            long_name = 2  # comment that should not be aligned
+        No:
+            foo       = 1000  # comment
+            long_name = 2     # comment that should not be aligned
+
+
+Lambdafunktioner:
+    Okej för funktioner kortare än en rad.
+
+
+Kommentarer:
+    Dokumentation:
+        Skrivs inutti trippel dubbelfnuttar ("""). Börjar med stor bokstav och
+        avslutas med punkt. Skrivs direkt under definitionen.
+        Yes:
+            def funk(): 
+                """Dok."""
+        No: """dok"""
+            def funk():
+
+Jag håller inte med:
+    Detta dokument skall följas när applicerbart, ändringar sker i samspråk 
+    med övriga i gruppen.

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% if features['newsarchive'] %}
+    <div class="newsarchive newsarchive__background container">
+        <h1 class="newsarchive__title">
+            {{macros.edit_button(adapter.get_entry(title='newsarchiveTitle'))}}
+            {{ adapter.get_entry(title='newsarchiveTitle').text }}</h1>
+        <div class="newsarchive__text">
+            {{macros.edit_button(adapter.get_entry(title='newsarchiveText'))}}
+            {{ adapter.get_entry(title='newsarchiveText').text | markdown }} </div>
+    </div>
+
+    <div class="newsarchive__container container">
+        <div class="newsarchive__triangle"></div>
+        <h1 class="newsarchive__subtitle">
+            {{macros.edit_button(adapter.get_entry(title='newsarchiveSubTitle'))}}
+            {{ adapter.get_entry(title='newsarchiveSubTitle').text }}</h1>
+
+
+            {% for news_item in news_items %}
+                {{ macros.news_box(news_item, True) }}
+            {% endfor %}
+
+
+    </div>
+
+
+
+{% endif %}
+{% endblock  %}

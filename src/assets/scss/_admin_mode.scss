@@ -1,0 +1,37 @@
+
+$admin-mode-height: 63px;
+$admin-mode-side-border-color: white;
+$admin-mode-font-size: 14px;
+
+.admin-mode {
+  font-family: "Avenir Next W01", Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: $admin-mode-font-size;
+  color: white;
+  background-color: $preview-background;
+
+    &__padding{
+        padding-top: $admin-mode-height;
+    }
+
+    &__header{
+        height: $admin-mode-height;
+        line-height: $admin-mode-height;
+    }
+
+    &__footer {
+        height: $admin-mode-height;
+        line-height: $admin-mode-height;
+        font-size: $admin-mode-font-size*1.5;
+        text-align:center;
+    }
+
+    &__button {
+        font-size: 0.7em !important;
+    }
+
+    &__label {
+        @extend .side-border;
+    }
+
+}

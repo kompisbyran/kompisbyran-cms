@@ -1,0 +1,24 @@
+
+.editor {
+
+    &__label {
+        @extend .side-border;
+    }
+
+    &__button {
+        float: left;
+        background-color: transparent;
+        border: none;
+    }
+
+    & > &__button {
+        float: none;
+    }
+}
+
+.editor-panel {
+    border: solid $preview-background;
+    margin: 5px;
+    border-top-right-radius:6px;
+    border-top-left-radius:6px;
+}

@@ -1,0 +1,150 @@
+
+$meetup_font_size_quotation_l: 2.5em;
+$meetup_font_size_quotation_m: 2em;
+$meetup_font_size_quotation_s: 2em;
+
+$meetup_font_size_timestamp_l: 1.286em;
+$meetup_font_size_timestamp_m: 1em;
+$meetup_font_size_timestamp_s: 1em;
+
+$meetup_font_size_l: 1em;
+$meetup_font_size_m: 0.9em;
+$meetup_font_size_s: 0.9em;
+
+.meetup {
+    background-color:  $color_grey;
+    text-align: center;
+    padding: 20px 20px;
+    border-spacing: 30px 30px;
+    @include max-device-width($mobile_width_threshold){
+        padding: 20px 10%;
+    }
+
+    &__link{
+
+        &:hover{
+            text-decoration: none;
+        }
+
+        &:focus{
+            outline: none;
+        }
+
+        @include max-device-width($mobile_width_threshold){
+            &:nth-child(3) {
+                display: none;
+            }
+            &:nth-child(4) {
+                display: none;
+            }
+        }
+
+        @include min-device-width($mobile_width_threshold+1px){
+            &:nth-child(2) > div{
+                @include rotate($meetup-tilt);
+            }
+            &:nth-child(3) > div{
+                @include rotate(-1*$meetup-tilt);
+            }
+            &:nth-child(4) > div{
+                @include rotate($meetup-tilt);
+            }
+        }
+
+    }
+
+    &__panel {
+        display: inline-block;
+        margin: 20px 10px;
+        vertical-align: middle;
+        font-family: $font_chaparral;
+        font-style: italic;
+        text-align: left;
+        background-color: $color_white;
+        width: 30%;
+        @include max-device-width($mobile_width_threshold){
+            width: 100%;
+        }
+
+        &-gallery{
+            width: 100%;
+        }
+        &:hover {
+            @include shadow($shadow_v_standard, $shadow_h_standard, $shadow_blur_standard, $shadow_color);
+        }
+    }
+
+    &__image {
+        padding: 15px 20px 0 15px;
+        width: 100%;
+        height: auto;
+    }
+
+    &__info {
+        font-style: italic;
+        padding: 0 1.5em;
+        text-align: left;
+
+        &__names {
+            margin-bottom: 0;
+        }
+        &__timestamp {
+            font-family: $font_chaparral;
+            font-style: italic;
+            color: $color_dark_neptune;
+            font-size: $meetup_font_size_timestamp_l;
+            @include max-device-width($tablet_width_threshold){
+                font-size: $meetup_font_size_timestamp_m;
+            }
+            @include max-device-width($mobile_width_threshold){
+                font-size: $meetup_font_size_timestamp_s;
+            }
+        }
+    }
+    &__blockquote{
+        border: none;
+        margin: .5em;
+        padding: 0 1em;
+        color: $color_font;
+        font-size: $meetup_font_size_l;
+        @include max-device-width($tablet_width_threshold){
+            font-size: $meetup_font_size_m;
+        }
+        @include max-device-width($mobile_width_threshold){
+            font-size: $meetup_font_size_s;
+        }
+        &:before{
+            font-size: $meetup_font_size_quotation_l;
+            @include max-device-width($tablet_width_threshold){
+                font-size: $meetup_font_size_quotation_m;
+            }
+            @include max-device-width($mobile_width_threshold){
+                font-size: $meetup_font_size_quotation_s;
+            }
+            color: $color_dark_neptune;
+            content: "\201C";
+            line-height: .1em;
+            margin-right: .1em;
+            vertical-align: -.3em;
+        }
+        &:after{
+            font-size: $meetup_font_size_quotation_l;
+            @include max-device-width($tablet_width_threshold){
+                font-size: $meetup_font_size_quotation_m;
+            }
+            @include max-device-width($mobile_width_threshold){
+                font-size: $meetup_font_size_quotation_s;
+            }
+            color: $color_dark_neptune;
+            content:"\201D";
+            line-height: .1em;
+            vertical-align: -.6em;
+        }
+        &:first-child{
+            display:inline;
+        }
+        &:last-child{
+            margin-bottom:0;
+        }
+    }
+}

@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<section>
+    <section class="about_page about_page__background container">
+    	  <h1 class="about_page__title">
+            {{macros.edit_button(adapter.get_entry(title='aboutMainTitle'))}}
+            {{adapter.get_entry(title='aboutMainTitle').text}} </h1>
+    	<p class="about_page__text">
+          {{macros.edit_button(adapter.get_entry(title='aboutMainText'))}}
+          {{adapter.get_entry(title='aboutMainText').text|markdown}}
+        </p>
+    </section>
+
+    <section class="staff container">
+        <div class="staff__triangle"></div>
+
+        <h1 class="staff__title">
+            {{macros.edit_button(adapter.get_entry(title='aboutSecondSectionTitle'))}}
+            {{ adapter.get_entry(title='aboutSecondSectionTitle').text }}</h1>
+        <img class="staff__image" src="{{adapter.get_entry(title='aboutImage').image.url}}">
+        <p class="staff__image_text">
+            {{macros.edit_button(adapter.get_entry(title='aboutImageText'))}}
+            {{ adapter.get_entry(title='aboutImageText').text }}</p>
+
+        <div class="staff__container">
+
+            <div class="staff__category">
+                {{macros.edit_button(adapter.get_entry(title='staffCategory1'))}}
+                {{ adapter.get_entry(title='staffCategory1').text | markdown }}
+            </div>
+
+            <div class="staff__category">
+                {{macros.edit_button(adapter.get_entry(title='staffCategory2'))}}
+                {{ adapter.get_entry(title='staffCategory2').text | markdown }}
+            </div>
+
+            <div class="staff__category">
+                {{macros.edit_button(adapter.get_entry(title='staffCategory3'))}}
+                {{ adapter.get_entry(title='staffCategory3').text | markdown }}
+            </div>
+
+            <div class="staff__category">
+                {{macros.edit_button(adapter.get_entry(title='staffCategory4'))}}
+                {{ adapter.get_entry(title='staffCategory4').text | markdown }}
+            </div>
+
+        </div>
+    </section>
+
+    <section class="contact container">
+        <div class="contact__triangle"></div>
+
+        <h1 class="contact__title">
+            {{macros.edit_button(adapter.get_entry(title='aboutThirdSectionTitle'))}}
+            {{ adapter.get_entry(title='aboutThirdSectionTitle').text }}</h1>
+        <div class="contact__container">
+
+            <div class="contact__category">
+                <h3 class="contact__title">
+                    {{macros.edit_button(adapter.get_entry(title='contactCategory1Title'))}}
+                    {{ adapter.get_entry(title='contactCategory1Title').text }}</h3>
+                <div class="contact__line"></div>
+                {{macros.edit_button(adapter.get_entry(title='contactCategory1'))}}
+                {{ adapter.get_entry(title='contactCategory1').text | markdown }}
+            </div>
+
+            <div class="contact__category">
+                <h3 class="contact__title">
+                    {{macros.edit_button(adapter.get_entry(title='contactCategory2Title'))}}
+                    {{ adapter.get_entry(title='contactCategory2Title').text }}</h3>
+                <div class="contact__line"></div>
+                {{macros.edit_button(adapter.get_entry(title='contactCategory2'))}}
+                {{ adapter.get_entry(title='contactCategory2').text | markdown }}
+            </div>
+
+            <div class="contact__category">
+                <h3 class="contact__title">
+                    {{macros.edit_button(adapter.get_entry(title='contactCategory3Title'))}}
+                    {{ adapter.get_entry(title='contactCategory3Title').text }}</h3>
+                <div class="contact__line"></div>
+                {{macros.edit_button(adapter.get_entry(title='contactCategory3'))}}
+                {{ adapter.get_entry(title='contactCategory3').text | markdown }}
+            </div>
+
+        </div>
+    </section>
+</section>
+
+
+{% endblock  %}

@@ -1,0 +1,562 @@
+
+{% macro editor_panel_list(content, label, text) %}
+{% if adminMode %}
+<div class="editor-panel">
+    <div class="panel-heading editor preview">
+        <span class="editor__label"> {{label}} </span>
+        {{list_all_button(content.content_type, text)}}
+    </div>
+    {% endif %}
+    {{ caller()  }}
+    {% if adminMode %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro list_all_button(content, button_text='')%}
+{% if adminMode %}
+	<button
+	  class="editor__button"
+	  onClick="window.open('https://app.contentful.com/spaces/{{space_id}}/entries/?contentTypeId={{content}}','_blank');">
+	<span class="icomoon-list"></span>
+	{{button_text}}
+	</button>
+{% endif %}
+{% endmacro %}
+
+{% macro editor_panel_search(search_text, label, text) %}
+{% if adminMode %}
+<div class="editor-panel">
+    <div class="panel-heading editor preview">
+        <span class="editor__label"> {{label}} </span>
+        {{list_search_button(search_text, text)}}
+    </div>
+    {% endif %}
+    {{ caller()  }}
+    {% if adminMode %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro list_search_button(search_text, button_text='') %}
+{% if adminMode %}
+	<button
+	  class="editor__button"
+	  onClick="window.open('https://app.contentful.com/spaces/{{space_id}}/entries/?searchTerm={{search_text}}','_blank');">
+	<span class="icomoon-list"></span>
+	{{button_text}}
+	</button>
+{% endif %}
+{% endmacro %}
+
+{% macro editor_panel_entry(content, label, text) %}
+{% if adminMode %}
+<div class="editor-panel">
+    <div class="panel-heading editor preview">
+        <span class="editor__label"> {{label}} </span>
+        {{edit_button(content, text)}}
+    </div>
+    {% endif %}
+    {{ caller()  }}
+    {% if adminMode %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro edit_button(content, button_text ='')%}
+{% if adminMode %}
+	<button
+	  class="editor__button"
+	  onClick="window.open('https://app.contentful.com/spaces/{{space_id}}/entries/{{content.id}}', '_blank');">
+	<span class="icomoon-pencil"></span>
+	{{button_text}}
+	</button>
+{% endif %}
+{% endmacro %}
+
+{% macro navbar_menus(menu, path) %}
+    {% for menu_item in menu %}
+    	{% if not menu_item.menus or menu_item.menus|length < 2 %}
+    		{% if (menu_item.url) == path %}
+	    		<li class="menu__item"><a class="menu__itemlink menu__itemlink-selected" href="{{menu_item.url}}">{{menu_item.title}}</a></li>
+    		{% else %}
+                {% if 'system.kompisbyran.se' in menu_item.url %}
+	    		<li class="menu__item"><a class="menu__itemlink" href="{{menu_item.url + '?_locale=' + language}}">{{menu_item.title}}</a></li>
+                {% else %}
+                <li class="menu__item"><a class="menu__itemlink" href="{{menu_item.url}}">{{menu_item.title}}</a></li>
+                {% endif %}
+    		{% endif %}
+    	{% else %}
+
+	    	<li class="menu__item dropdown">
+		      <a href="#" class="dropdown-toggle menu__itemlink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		        {{menu_item.title}}<span class="icomoon-caret dropdown__symbol"></span>
+		      </a>
+
+              {% if menu_item.menus %}
+		      <ul class="dropdown-menu dropdown__menu">
+		        {% for sub_menu in menu_item.menus %}
+		          {% if (menu_item.url + sub_menu.url)  == path %}
+		          	{% set li_class = 'dropdown__item dropdown__item-selected' %}
+		          	{% set a_class = 'dropdown__itemlink dropdown__itemlink-selected' %}
+		          {% else %}
+		          	{% set li_class = 'dropdown__item' %}
+		          	{% set a_class = 'dropdown__itemlink' %}
+		          {% endif %}
+
+		          <li class="{{li_class}}">
+			          <a class="{{a_class}}" href="{{menu_item.url + sub_menu.url}}">
+			            {{sub_menu.title}}
+			          </a>
+		          </li>
+
+		        {% endfor %}
+		      </ul>
+             {% endif %}
+		    </li>
+
+    	{% endif %}
+
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro meetup_feed(meetups)%}
+{% call editor_panel_list(meetups[0], 'meetupfeed', 'View all meetups') %}
+    <section class="meetup">
+        {% set meetupTitle = adapter.get_entry(title='meetupFeedTitle')%}
+        {{edit_button(meetupTitle)}}
+        <h1 class="meetup__title">{{meetupTitle.text}}</h1>
+        {% for meetup in meetups %}
+        <a class="meetup__link" href="/gallery">
+            {{get_meetup(meetup)}}
+        </a>
+        {% endfor %}
+        <br />
+        {% set meetupLink = adapter.get_entry(title='meetupFeedLink')%}
+        {{edit_button(meetupLink)}}
+        <a href="/gallery">{{meetupLink.text}}</a>
+    </section>
+{% endcall %}
+{% endmacro %}
+
+{% macro get_meetup(meetup, hasQuote=True, singlePost=False) %}
+    {% if singlePost %}
+    <div class="friend__meetup">
+    {% elif hasQuote %}
+    <div class="meetup__panel">
+    {% else %}
+    <div class="meetup__panel meetup__panel-gallery">
+    {% endif %}
+        {% if adminMode %}
+        {{edit_button(meetup)}}
+        {% endif %}
+        <img class="meetup__image center-block" src="{{meetup.picture.url}}" alt="{{meetup.names}}">
+        <div class="meetup__info">
+            <h2 class="meetup__info__names">{{meetup.names}}</h2>
+            <div class="meetup__info__timestamp">{{meetup.date}}</div>
+        </div>
+        {% if hasQuote %}
+            <blockquote class="meetup__blockquote">
+                {% if meetup.meetup | length > 300 %}
+                    {{meetup.meetup[:300] +'...'}}
+                {% else %}
+            	   {{meetup.meetup}}
+                {% endif %}
+            </blockquote>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro meetup_modal(meetup) %}
+    <div class="modal fade" id="{{meetup.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body meetup_modal">
+                    <img class="meetup_modal__image" src="{{meetup.picture.url}}" alt="{{meetup.names}}">
+                    <h2>{{meetup.names}}</h2>
+                    <blockquote class="meetup__blockquote meetup_modal__text">
+                        {{meetup.meetup | markdown}}
+                        <br />
+                    </blockquote>
+                </div>
+
+                <div class="modal-footer meetup_modal__footer">
+                    <a class="meetup_modal__button" href="#" data-dismiss="modal">{{adapter.get_entry(title='galleryModalButton').text}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro language_modal(languages, user_language) %}
+    <section class="modal fade bs-example-modal-sm asdf" id="language-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    {{adapter.get_entry(title='languageModalTitle').text}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body meetup_modal">
+                {% for lang in adapter.languages if not lang.optional%}
+                    {% if lang.code == user_language %}
+                        <div class="language__alt language__alt-selected">
+                            <a class="language__link" href="#" data-toggle="modal" data-target="#language-modal">
+                                {{lang.name}}
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="language__alt language__alt-modal">
+                            <a class="language__link" href="{{'?language=' + lang.code}}">
+                                {{lang.name}}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+
+                <div class="modal-footer meetup_modal__footer">
+                    <a class="meetup_modal__button" href="#" data-dismiss="modal">
+                        {{adapter.get_entry(title='languageModalButton').text}}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endmacro %}
+
+{% macro panel(title, panel_content) %}
+<div class="panel">
+	<h1>{{title}}</h1>
+	{% for content in panel_content %}
+	{{display_content(content)}}
+	{% endfor %}
+</div>
+{% endmacro %}
+
+{% macro news_feed()%}
+    {% if news_items.contentList | length > 0 %}
+    {% call editor_panel_list(news_items.contentList[0], 'news feed', 'View all news') %}
+
+    <section class="news-feed">
+        {% if news_items.contentList | length == 1 %}
+            <div class="news-feed__single">
+        {% endif %}
+        {% if news_items.contentList | length > 1 %}
+            <div class="news-feed__multi">
+        {% endif %}
+        {% for news_item in news_items.contentList %}
+            {{ news_box(news_item) }}
+        {% endfor %}
+        </div>
+    </section>
+    {% endcall %}
+    {% endif %}
+{% endmacro %}
+
+{% macro news_box(news_item, archive=False) %}
+    {% if archive %}
+    <section class="news-feed">
+        <div class="news-feed__single">
+    {% endif %}
+            <div class="news-feed__item">
+                {{ edit_button(news_item) }}
+                <a class="news-feed__item__link" href="/news/{{news_item.id}}">
+                <img class="news-feed__item__image" src="{{news_item.picture.url}}" />
+                <div class="news-feed__item__main">
+                    <h2 class="news-feed__item__title">
+                        {{news_item.title}}
+                    </h2>
+
+                    {% if archive %}
+                    {% endif %}
+                    <p class="news-feed__item__text">
+                        {{news_item.text}}
+                    </p>
+                    <p class="news-feed__item__text--link">
+                        {{news_item.linkText}}
+                    </p>
+                </div>
+                </a>
+            </div>
+    {% if archive %}
+        </div>
+    </section>
+    {% endif %}
+{% endmacro %}
+
+{% macro display_content(content) %}
+	{% set content = adapter.client.resolve_resource_link(content) %}
+	{% if content.sys['contentType']['sys']['id'] == 'text' %}
+		{{text(content.fields['title'], content.fields['text'])}}
+	{% elif content.sys['contentType']['sys']['id'] == 'meetup' %}
+		{{panel_meetup( content['fields']['picture'].fields['file']['url'], content['fields']['date'] )}}
+	{% else %}
+		<p>Oops! {{content.sys['contentType']['sys']['id']}}</p>
+	{% endif %}
+
+{% endmacro %}
+
+{% macro number_of_matches() %}
+    <section class="number_of_matches">
+        <h1>
+            {% set matchesTitle = adapter.get_entry(content_type='text', title='matchesTitle') %}
+            {{edit_button(matchesTitle)}}
+            {{matchesTitle.text}}
+        </h1>
+        <div class="number_of_matches--bling-icon">
+            {% set matchesText = adapter.get_entry(content_type='text', title='matchesText') %}
+            {{ edit_button(matchesText) }}
+            {{matchesText.text}}
+        </div>
+    </section>
+{% endmacro %}
+
+
+{% macro text(title, text) %}
+<div>
+	<h3>{{title}}</h3>
+	<p>{{text}}</p>
+</div>
+{% endmacro %}
+
+{% macro panel_meetup(img_url, date) %}
+<div>
+	<img src="{{img_url}}"/>
+	<p>{{date}}</p>
+</div>
+{% endmacro %}
+
+{% macro guide(guide) %}
+{% call editor_panel_entry(guide, 'guide', 'View guide editor' ) %}
+	<section class="how-it-work">
+		<h1 class="how-it-work__title">{{ guide.title }}</h1>
+		<p class="how-it-work__text">{{ guide.text }}</p>
+		<div class="guide">
+            {% for step in guide.steps %}
+            <div class="step">
+                  {{edit_button(step)}}
+    				    <div class="step__imagecontainer">
+                    <img class="step__image" src="{{ step.icon.url }}" />
+                </div>
+                <h2 class="step__title">
+                    {{ step.title }}
+                </h2>
+                <p class="step__text">
+                    {{ step.text }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+	</section>
+{% endcall %}
+{% endmacro %}
+
+{% macro read_more_white(text) %}
+    <section>
+        <button class="faq_list__button collapsed dropdown-toggle" type="button" data-toggle="collapse" data-target="#{{'collapsable' + text}}" aria-expanded="false">
+            <div class="faq_list__button__text">{{text}}</div>
+            <div class="faq_list__button__caret_div"><span class="icomoon-caret faq_list__button__caret"></span></div>
+        </button>
+        <div class="read-more__content collapse" id="{{'collapsable' + text}}">
+            {{ caller() }}
+        </div>
+    </section>
+{% endmacro %}
+
+{% macro read_more(text) %}
+    <section>
+        <button class="general_button read-more__button collapsed" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" >
+            {{text.text}}
+            <span class="icomoon-caret read-more__arrow"></span>
+        </button>
+        <div class="read-more__content collapse" id="collapse">
+            <div class="pos-triangle">
+                <div class="triangle"></div>
+            </div>
+            {{ caller() }}
+        </div>
+    </section>
+{% endmacro %}
+
+
+{% macro faq(faq_list) %}
+  {% set title_text = adapter.get_entry(title='FAQ-title') %}
+  {% set questions = faq_list.contentList %}
+  {% call read_more(title_text) %}
+  <div class='faq'>
+      <div class='faq__background container'>
+          {{ edit_button(text) }}
+          <h1 class='faq__title'>{{title_text.text}}</h1>
+          {{ edit_button(adapter.get_entry(title='FAQ-text')) }}
+          <div class='faq__text'><p>{{adapter.get_entry(title='FAQ-text').text | markdown}}</p></div>
+          {% if faq and questions%}
+          {% call editor_panel_entry(faq_list, 'faq questions', 'View FAQ-questions') %}
+          <div class="faq__questions">
+              {% for question in questions if question.question != "" %}
+              <div class='faq__element'>
+                  {{ edit_button(question) }}
+                  <h2>{{ question.question }}</h2>
+                  <hr class="faq__line" />
+                  <p>{{ question.answer }}</p>
+              </div>
+              {% endfor %}
+          </div>
+          {% endcall %}
+          {% endif %}
+      </div>
+  </div>
+  {% endcall %}
+{% endmacro %}
+
+{% macro campaign() %}
+    <section class='campaign'>
+        {% set text = adapter.get_entry(title='campaignTitle') %}
+            {% if adminMode %}
+              {{edit_button(text)}}
+            {% endif %}
+        <h1 class='what_choice'> {{text.text}} </h1>
+        {% set campaign = adapter.get_entry(content_type='campaign') %}
+        {% call editor_panel_entry(campaign, 'campaign', 'View campaign editor') %}
+        {{ main_campaign(campaign.mainFriend) }}
+
+        {% set secondary_friends = campaign.secondaryFriends%}
+        {% if secondary_friends %}
+        <div class='secondary-campaign'>
+            {% for friend in campaign.secondaryFriends %}
+            {{ edit_button(friend) }}
+                <div class='secondary-campaign__element'>
+                    <a href="{{ '/friend' + friend.url }}">
+                    <img class='img-responsive secondary-campaign__image' src='{{friend.mainImage.url}}' />
+                    <div class='secondary-campaign__background'>
+                        <h1 class='secondary-campaign__title'> {{friend.title}} </h1>
+                        <p class='secondary-campaign__text'> {{friend.introductionText}} </p>
+                    </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endcall %}
+    </section>
+{% endmacro %}
+
+{% macro main_campaign(main_friend) %}
+    <div class='main_campaign'>
+        <div class="main_campaign__image_div">
+            <img class='main_campaign__image' src='{{main_friend.mainImage.url}}' />
+        </div>
+        <div class='main_campaign__content'>
+            {% if adminMode %}
+              {{edit_button(main_friend)}}
+            {% endif %}
+            <h1 class='main_campaign__title'> {{main_friend.title}} </h1>
+            <p class='main_campaign__text'> {{main_friend.introductionText}} </p>
+            {% set mainCampaignButton = adapter.get_entry(title='mainCampaignButton') %}
+            <a class='general_button main_campaign__link' href="{{ '/friend' +  main_friend.url }}"> {{ mainCampaignButton.text + ' ' + main_friend.title}}</a>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro hero() %}
+    <section class="hero">
+        <img class="hero__image" src="{{adapter.get_entry(title='heroImage').image.url}}"/>
+        <div class="hero__container">
+            <img class="hero__arrow" src="{{ url_for('static', filename='images/pil.svg') }}"/>
+            <img class="hero__bun" src="{{ url_for('static', filename='images/bulle.svg') }}"/>
+            <img class="hero__smiley" src="{{ url_for('static', filename='images/smiley.svg') }}"/>
+
+            {{edit_button(adapter.get_entry(title='heroTitle'))}}
+            <h1 class="hero__title">{{adapter.get_entry(title='heroTitle').text}}</h1>
+
+            {{edit_button(adapter.get_entry(title='heroText'))}}
+            <p class="hero__text">{{adapter.get_entry(title='heroText').text}}</p>
+
+            {% if adminMode %}
+            <div class="hero__button-desktop">
+              {{edit_button(adapter.get_entry(title='heroButtonDesktop'))}}
+            </div>
+            {% endif %}
+            <a href="{{adapter.get_entry(title='heroButtonUrl').text + '?_locale=' + language}}">
+                <div class="hero__button-desktop general_button">{{adapter.get_entry(title='heroButtonDesktop').text}}</div>
+            </a>
+            {% if adminMode %}
+            <div class="hero__button-mobile">
+              {{edit_button(adapter.get_entry(title='heroButtonMobile'))}}
+            </div>
+            {% endif %}
+            <a href="{{adapter.get_entry(title='heroButtonUrl').text + '?_locale=' + language}}">
+                <div class="hero__button-mobile general_button">{{adapter.get_entry(title='heroButtonMobile').text}}</div>
+            </a>
+
+        </div>
+        <div class="hero__overlay"></div>
+    </section>
+{% endmacro %}
+
+{% macro sponsor_banner() %}
+{% if main_sponsors|length > 0 %}
+     <section class="sponsor_banner">
+         {% set sponsor_banner_text = adapter.get_entry(title='sponsorBannerText')%}
+        <p class="sponsor_banner__text">
+            {{edit_button(sponsor_banner_text)}}
+            {{sponsor_banner_text.text}}
+        </p>
+        <br />
+        {% for sponsor in main_sponsors %}
+            {% if sponsor.isMainSponsor %}
+            {{edit_button(sponsor)}}
+            <a href="{{sponsor.link}}">
+                <img class="sponsor_banner__logo" src="{{sponsor.logo.url}}" />
+            </a>
+            {% endif %}
+        {% endfor %}
+    </section>
+{% endif %}
+{% endmacro %}
+
+{% macro support_us() %}
+{% call editor_panel_search('support', 'support us', 'View support us content') %}
+<section class="support_us">
+    {{edit_button(adapter.get_entry(title='supportTitle'))}}
+    <h1>
+        {{adapter.get_entry(title='supportTitle').text}}
+    </h1>
+    <div class="support_us__main">
+        {{edit_button(adapter.get_entry(title='supportMainText'))}}
+        {{adapter.get_entry(title='supportMainText').text | markdown}}
+        {{edit_button(adapter.get_entry(title='supportExtraText'))}}
+        {{adapter.get_entry(title='supportExtraText').text | markdown}}
+    </div>
+    <div class="support_us__options">
+        <div>
+            <img class="support_us__swish" src="/static/images/swish.png" />
+            {% set swishText = adapter.get_entry(title='supportSwishText')%}
+            {% set swishNumber = adapter.get_entry(title='supportSwishNumber')%}
+            {{swishText.text | markdown}}
+            {{edit_button(swishText)}}
+            {{edit_button(swishNumber)}}
+            {{swishNumber.text | markdown}}
+        </div>
+        <div>
+            <img class="support_us__bankgiro" src="/static/images/bankgiro.svg" />
+            {% set bankgiroText = adapter.get_entry(title='supportBankgiroText')%}
+            {% set bankgiroNumber = adapter.get_entry(title='supportBankgiroNumber')%}
+            {{bankgiroText.text | markdown}}
+            {{edit_button(bankgiroText)}}
+            {{edit_button(bankgiroNumber)}}
+            {{bankgiroNumber.text | markdown}}
+        </div>
+    </div>
+</section>
+{% endcall %}
+{% endmacro %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% if features['friend_page'] %}
+
+<section class="general_page">
+    <div class="general_page__background container">
+        <h1 class="general_page__title">
+            {{macros.edit_button(adapter.get_entry(title='termsMainTitle'))}}
+            {{adapter.get_entry(title='termsMainTitle').text}}
+        </h1>
+        <div class="general_page__text">
+            {{macros.edit_button(adapter.get_entry(title='termsMainText'))}}
+            {{adapter.get_entry(title='termsMainText').text | markdown}}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock  %}

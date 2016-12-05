@@ -1,0 +1,43 @@
+
+$preview-height: 63px;
+$preview-side-border-color: white;
+$preview-font-size: 14px;
+
+.preview {
+  font-family: "Avenir Next W01", Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: $preview-font-size;
+  color: white;
+  background-color: $preview-background;
+
+    &__padding{
+        padding-top: $preview-height;
+    }
+
+    &__header{
+        height: $preview-height;
+        line-height: $preview-height;
+    }
+
+    &__footer {
+        height: $preview-height;
+        line-height: $preview-height;
+        font-size: $preview-font-size*1.5;
+        text-align:center;
+    }
+
+    &__button {
+        background-color: transparent;
+        border: none;
+        vertical-align: bottom;
+        margin: 0 30px;
+        height: $preview-height;
+        float: right;
+        //background-color: brown;
+    }
+
+    &__label {
+        @extend .side-border;
+    }
+
+}

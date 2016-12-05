@@ -1,0 +1,46 @@
+{% import "macros.html" as macros with context %}
+{% from "macros.html" import navbar_menus with context %}
+<header id="bootstrap-override">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+
+      <!-- Only show logo and menu-burger on mobile-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle navbar__burger collapsed" data-toggle="collapse" data-target="#menu-collapse" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand navbar__brand" href="/">
+          <img class="navbar__logo" src="{{ url_for('static', filename='images/logo.png') }}">
+        </a>
+      </div>
+
+      <!-- The menu -->
+      <div class="collapse navbar-collapse menu" id="menu-collapse">
+        <ul class="nav navbar-nav menu__list">
+          {% if menu %}
+            {{ navbar_menus(menu.contentList, entry_path) }}
+          {% endif %}
+          </ul>
+      </div>
+        <div class="language__menu">
+
+        {% for lang in adapter.languages if not lang.optional%}
+          {% if lang.code == adapter.user_language %}
+            <div class="language__alt language__alt-selected">
+              <a class="language__link" href="" data-toggle="modal" data-target="#language-modal">
+                {{lang.name}}
+              </a>
+             </div>
+          {% else %}
+            <div class="language__alt">
+              <a class="language__link" href="{{'?language=' + lang.code}}">
+                {{lang.name}}
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+  </nav>
+</header>

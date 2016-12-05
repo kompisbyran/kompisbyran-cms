@@ -1,0 +1,18 @@
+machine:
+  python:
+    version: 2.7.12
+    
+dependencies:
+  pre:
+    - gem install sass
+    - make production
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - make deploy
+      
+test:
+  override:
+    - nosetests src/tests/test.py

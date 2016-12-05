@@ -1,0 +1,38 @@
+@mixin icomoon {
+    font-family: icomoon;
+}
+
+.icomoon-pencil {
+    @include icomoon;
+    &:before{
+        content: '\270f';
+    }
+}
+
+.icomoon-list {
+    @include icomoon;
+    &:before{
+        content: '\e012';
+    }
+}
+
+.icomoon-close {
+    @include icomoon;
+    &:before{
+        content: '\e083';
+    }
+}
+
+.icomoon-plus {
+    @include icomoon;
+    &:before{
+        content: '\2b';
+    }
+}
+
+.icomoon-caret {
+    @include icomoon;
+    &:before{
+        content: '\e259';
+    }
+}

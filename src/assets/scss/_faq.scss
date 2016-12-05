@@ -1,0 +1,99 @@
+@import 'common';
+.read-more {
+
+    text-align: center;
+
+    &__title{
+        //font-family: $font_amatic;
+        //font-weight: bold;
+        //color: $color_dark_neptune;
+    }
+
+    &__button{
+        width: 100%;
+        border-radius:0 !important;
+        padding-top:15px;
+        padding-bottom:15px;
+        &.collapsed > span {
+            display: inherit;
+        }
+    }
+
+
+    &__content{
+        position: relative;
+        text-align: center;
+        background-color: #F0F0F0;
+    }
+
+    &__arrow{
+        display: none;
+        font-size: 0.7em;
+        margin-left: 5px;
+    }
+}
+
+
+.faq {
+    padding: 4em 0em;
+    margin: 0;
+    &__title {
+
+    }
+
+    &__background {
+        background-image: url(/static/images/left-wreath.svg), url(/static/images/right-wreath.svg);
+        background-repeat: no-repeat, no-repeat;
+        background-position: left top, right top;
+        background-size: 25%;
+    }
+
+
+    &__text {
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-bottom: 1em;
+        & > p > a{
+            font-size: 1em;
+        }
+    }
+    &__questions {
+    @include flexbox;
+    @include flex_direction(row);
+    @include max-device-width($mobile_width_portrait) {
+        @include flex_direction(column);
+    }
+    }
+    &__element {
+        position: relative;
+        flex-grow: 1;
+        padding: 0 1em;
+        width: 30%;
+        margin-left: auto;
+        margin-right: auto;
+        @include max-device-width($mobile_width_threshold) {
+            &:nth-last-child(1) {
+                display: none;
+            }
+        }
+        @include max-device-width($mobile_width_portrait) {
+            width: 60%;
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+    }
+    &__question {
+
+    }
+    &__line {
+        z-index: 50;
+        border-top: 3px solid $color_red;
+        width: 60%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    &__answer {
+
+    }
+}

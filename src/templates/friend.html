@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% if features['friend_page'] %}
+{% call macros.editor_panel_entry(friend, 'friend page', "Edit friend page") %}
+<section class="friend">
+    {% set button = adapter.get_entry(title='friendPageButton') %}
+    {% set campaignTitle = adapter.get_entry(title='friendPageCampaignTitle') %}
+    <img class="friend__image" src="{{friend.mainImage.url}}" />
+    <section class="friend__background">
+        <h1 class="friend__title"> {{ friend.title}} </h1>
+        <div class="friend__content">
+            <div class="friend__text">
+                {{ friend.text | markdown }}
+                <div class='friend__button'>
+                    {{macros.edit_button(button)}}
+                    <a class='general_button' href="{{adapter.get_entry(title='friendPageButtonUrl').text + '?_locale=' + language}}">{{button.text}}</a>
+                </div>
+            </div>
+            {% if friend.sidePanel != 'Nothing' %}
+            <aside class="friend__panel">
+                {% if friend.sidePanel == "Image" and friend.image is not string %}
+                <div class="friend__side_image_div">
+                    <img class="friend__side_image" src="{{ friend.image.url }}" />
+                </div>
+                {% elif friend.sidePanel == "Video" and friend.video is not string %}
+                <div class="friend__side_video">
+                    <video width="320" height="240" controls>
+                        <source src="{{friend.video.url}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% elif friend.sidePanel == "Youtube video" and friend.youtubeVideo != '' %}
+                <div class="friend__side_video">
+                    <iframe width="320" height="240" src="{{ friend.youtubeVideo }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                {% elif friend.sidePanel == "Meetup" and friend.meetup is not string %}
+                {{macros.get_meetup(friend.meetup, True, True)}}
+                {% endif %}
+            {% endif %}
+            </aside>
+        </div>
+    </section>
+    {% if friend.faq %}
+        {{ macros.faq(friend.faq) }}
+    {% endif %}
+    <section class='friend__campaign'>
+        {% if friend.friendPromotion is not string %}
+        {{ macros.edit_button(campaignTitle) }}
+            <h1>{{ campaignTitle.text }}</h1>
+            {{ macros.main_campaign(friend.friendPromotion) }}
+        {% endif %}
+    </section>
+</section>
+{% endcall %}
+{% endif %}
+{% endblock  %}

@@ -1,0 +1,119 @@
+@import 'common';
+
+.faq_page {
+
+    &__text {
+        text-align: center;
+        width: 60%;
+        margin-top: 60px;
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-bottom: 60px;
+        @include max-device-width($mobile_width_threshold) {
+            width: 90%;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        & > p {
+            width: 80%;
+            margin: auto auto;
+
+            & > a {
+                font-family: $font_open_sans;
+                font-size: 1em;
+                color: $color_dark_neptune;
+                @include max-device-width($tablet_width_threshold){
+                    font-size: $font_size_p_m;
+                }
+                @include max-device-width($mobile_width_threshold){
+                    font-size: $font_size_p_s;
+                }
+            }
+        }
+    }
+
+}
+
+.faq_list {
+    width: 80%;
+    margin: 0 10%;
+
+    @include max-device-width($mobile_width_threshold){
+        width: 90%;
+        margin: 0 5%;
+    }
+    margin-bottom: 1em;
+    &:nth-last-child(2) {
+        border-bottom: 1px solid $color_grey !important;
+    }
+
+    &__button {
+        width: 100%;
+        border: 0;
+        border-top: 1px solid $color_grey !important;
+        padding-top:15px;
+        padding-bottom:15px;
+        padding-left: 2em;
+        background-color: $color_neptune;
+        color: $color_white;
+        text-align:left;
+
+        & > .faq_list__button__caret_div{
+            @include rotate(180deg);
+        }
+        &:focus {
+            outline: none;
+            background-color: $color_neptune;
+            color: $color_white;
+            & > .faq_list__button__caret_div{
+                @include rotate(180deg);
+            }
+        }
+        &.collapsed {
+            background-color: $color_white !important;
+            color: $color_neptune;
+            & > .faq_list__button__caret_div{
+                @include rotate(0deg);
+            }
+        }
+
+        &__text {
+            position: relative;
+            float: left;
+        }
+
+        &__caret_div {
+            position: relative;
+            float:left;
+            width:10px;
+            margin-left: 5px;
+        }
+        &__caret {
+            font-size: 0.7em;
+        }
+    }
+    ul {
+        margin-left: 2em;
+        margin-right: 8em;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        @include max-device-width($tablet_width_threshold) {
+            margin-left:1em;
+            margin-right: 3em;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            margin-left:0.1em;
+            margin-right: 2em;
+        }
+    }
+    li {
+        list-style-image: url('/static/images/left-bling-small.svg');
+    }
+
+    &__question {
+        text-align: left;
+        margin-bottom:0;
+    }
+    &__answer {
+    }
+}

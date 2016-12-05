@@ -1,0 +1,281 @@
+$extra_tablet_threshold: 920px;
+$campaign_font_size_main_title_l: 5.143em;
+$campaign_font_size_main_title_m: 3.429em;
+$campaign_font_size_main_title_s: $font_size_h1_s;
+
+$campaign_font_size_secondary_title_l: $font_size_h1_l;
+$campaign_font_size_secondary_title_m: $font_size_h1_m;
+$campaign_font_size_secondary_title_s: 2.143em;
+
+$campaign_font_size_h1_desktop: 48px;
+$campaign_font_size_h1_mobile: 34px;
+
+$campaign_font_size_p_desktop: 16px;
+$campaign_font_size_p_mobile: 14px;
+
+
+.campaign {
+    margin-left: 1em;
+    margin-right: 1em;
+    @include min-device-width($tablet_width_threshold){
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+
+}
+.what_choice {
+    //font-family: $font_amatic;
+    //color: $color_dark_neptune;
+    //  font-size: 3em;
+    padding-top: 15px;
+    margin: 0;
+    @include max-device-width($tablet_width_threshold) {
+        font-size: 2em;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    @include max-device-width($mobile_width_threshold) {
+        font-weight: bold;
+    }
+}
+
+.main_campaign{
+    background-color: white;
+    position: relative;
+    @include max-device-width($mobile_width_threshold) {
+        max-width: $mobile_width_threshold;
+        overflow: hidden;
+    }
+    &__image_div {
+        max-height: 415px;
+        overflow: hidden;
+        @include max-device-width($desktop_width_threshold) {
+            max-height: 30vw;
+        }
+    }
+    &__image {
+        z-index: -5;
+        padding: 0;
+        width: 100%;
+        @include max-device-width($mobile_width_threshold) {
+            width: $mobile_width_threshold;
+        }
+        @include max-device-width($mobile_width_portrait) {
+            margin-top: -30vw;
+            margin-left: -70vw;
+        }
+    }
+    &__content {
+        position: absolute;
+        top:0;
+        left:6%;
+        height: 100%;
+        width: 37%;
+        background-color: $transparent_div;
+        padding-top: 1em;
+        padding-left: 5%;
+        padding-right: 5%;
+        text-align: center;
+        @include max-device-width($tablet_width_threshold) {
+            width: 45%;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            position: relative;
+            width: 100%;
+            left:0;
+            padding-bottom: 25px;
+        }
+    }
+    &__title {
+        //font-family: $font_amatic;
+        //color: $color_dark_neptune;
+        font-size: $campaign_font_size_main_title_l;
+        text-align: center;
+        @include max-device-width($tablet_width_threshold) {
+            font-size: $campaign_font_size_main_title_m;
+        }
+        @include max-device-width($extra_tablet_threshold) {
+        }
+        @include max-device-width($mobile_width_threshold) {
+            font-size: $campaign_font_size_main_title_s;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+    &__text {
+        text-align:center;
+        padding-top: 1em;
+        padding-bottom: 2em;
+        @include max-device-width($tablet_width_threshold) {
+            padding-bottom: 1em;
+        }
+        @include max-device-width($extra_tablet_threshold) {
+            padding-top:0;
+            padding-bottom:5px;
+            margin-bottom:10px;
+        }
+    }
+    &__link {
+        padding: 15px 40px 15px 40px;
+        @include max-device-width($extra_tablet_threshold) {
+            padding: 10px 30px 10px 30px;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            padding: 10px 25px 10px 25px;
+        }
+
+    }
+}
+
+$max-height: 250px;
+
+.secondary-campaign {
+    @include flexbox;
+    @include flex_direction(row);
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 1em;
+    @include max-device-width($mobile_width_threshold) {
+        @include flex_direction(column);
+        margin-top:0.5em;
+    }
+
+    &__element {
+        position: relative;
+        flex-grow: 1;
+        width:100%;
+        margin: 1em;
+        max-height: $max-height;
+        overflow: hidden;
+
+        &:hover {
+            @include shadow($shadow_v_standard, $shadow_h_standard, $shadow_blur_standard, $shadow_color);
+        }
+
+        &:nth-child(1){
+            margin-left:0;
+        }
+        &:nth-last-child(1) {
+            margin-right:0;
+        }
+        &:only-child {
+            @include min-device-width($mobile_width_threshold) {
+                max-height: 175px;
+                margin-right: 3em;
+                margin-left: 3em;
+            }
+            @include between-device-width($mobile_width_threshold, $desktop_width_threshold) {
+                max-height: 10vw;
+            }
+        }
+        @include max-device-width($mobile_width_threshold) {
+            margin-left:0;
+            margin-right:0;
+            margin-top:0.5em;
+            margin-bottom:0.5em;
+        }
+    }
+    &__link {
+        width: 100%;
+        @include between-device-width($mobile_width_threshold, 930px) {
+            padding-top:0;
+        }
+    }
+    &__background {
+        position: absolute;
+        max-height: $max-height;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-color: $transparent_div;
+
+        font-size: $font_size_a_l;
+        color: $color_neptune;
+        @include max-device-width($tablet_width_threshold){
+            font-size: $font_size_a_m;
+        }
+        @include max-device-width($mobile_width_threshold){
+            font-size: $font_size_a_s;
+        }
+
+        @include max-device-width($mobile_width_threshold) {
+            padding-top:0.5em;
+            padding-bottom:0.5em;
+            position: relative;
+            border-radius: 15px;
+            background-color: $color_light_neptune;
+        }
+    }
+    &__image {
+        z-index: -5;
+        padding: 0;
+        width: 100%;
+        @include max-device-width($mobile_width_threshold) {
+            display: none;
+        }
+    }
+    &__title {
+        //font-family: $font_amatic;
+        //color: $color_dark_neptune;
+        font-size: $campaign_font_size_h1_desktop;
+        @include max-device-width($tablet_width_threshold) {
+            font-size: $campaign_font_size_h1_mobile;
+        }
+        @include max-device-width($desktop_width_threshold){
+            margin-bottom:0;
+        }
+        
+
+        text-align: center;
+        @include max-device-width(1180px) {
+            margin-top: 5px;
+        }
+        @include max-device-width($tablet_width_threshold) {
+            margin-bottom: 5px;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            margin: 0;
+        }
+        &:before {
+            @include matches-bling-icon();
+            width: $matches_bling_size_small;
+            height: $matches_bling_size_small;
+            filter: brightness(0) invert(1);
+            background: url("/static/images/left-bling.svg") no-repeat;
+            background-size: contain;
+            @include max-device-width($tablet_width_threshold) {
+                display: none;
+            }
+        }
+        &:after {
+            @include matches-bling-icon();
+            width: $matches_bling_size_small;
+            height: $matches_bling_size_small;
+            filter: brightness(0) invert(1);
+            background: url("/static/images/right-bling.svg") no-repeat;
+            background-size: contain;
+            @include max-device-width($tablet_width_threshold) {
+                display: none;
+            }
+        }
+    }
+    &__text {
+        text-align: center;
+        padding-top: 0;
+        padding-left: 14%;
+        padding-right: 14%;
+        font-size: $campaign_font_size_p_desktop;
+        @include max-device-width($desktop-width_threshold) {
+            padding-left:0;
+            padding-right:0;
+        }
+        @include max-device-width($tablet_width_threshold) {
+            font-size: $campaign_font_size_p_mobile;
+            padding-left:2%;
+            padding-right:2%;
+        }
+        @include max-device-width($extra_tablet_threshold) {
+            display: none;
+        }
+    }
+}

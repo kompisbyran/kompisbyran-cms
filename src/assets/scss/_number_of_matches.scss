@@ -1,0 +1,36 @@
+$font_size_nom_l: 8.571em;
+$font_size_nom_m: 5.143em;
+$font_size_nom_s: 5.143em;
+
+.number_of_matches {
+    //font-family: $font_amatic;
+    //color: $color_dark_neptune;
+    text-align: center;
+    margin: 25px 0;
+
+    &--bling-icon {
+        padding: 0;
+        margin: 0;
+        font-family: $font_amatic;
+        font-size: $font_size_nom_l;
+        color: $color_dark_neptune;
+        @include max-device-width($tablet_width_threshold) {
+            font-size: $font_size_nom_m;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            font-size: $font_size_nom_s;
+        }
+        &:before {
+            @include matches-bling-icon();
+            margin-right: 50px;
+            background: url("/static/images/left-bling.svg") no-repeat;
+            background-size: contain;
+        }
+        &:after {
+            @include matches-bling-icon();
+            margin-left: 50px;
+            background: url("/static/images/right-bling.svg") no-repeat;
+            background-size: contain;
+        }
+    }
+}

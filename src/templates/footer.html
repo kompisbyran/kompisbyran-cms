@@ -1,0 +1,51 @@
+{% import "macros.html" as macros with context %}
+
+{% call macros.editor_panel_search('footer', 'footer', 'View footer content') %}
+<footer class="footer">
+    
+    <div class="footer__main container">
+        {% set footerTitle = adapter.get_entry(title='footerTitle') %}
+        <h1>
+            {{macros.edit_button(footerTitle)}}
+            {{footerTitle.text}}
+        </h1>
+    <div>
+    {% for sponsor in sponsors %}
+        {{macros.edit_button(sponsor)}}
+        <a href="{{sponsor.link}}">
+            <img class="footer__sponsor" src="{{sponsor.logo.url}}">
+        </a>
+    {% endfor %}
+    </div>
+
+    <div class="general_text">
+        {{macros.edit_button(footerTitle)}}
+        {{adapter.get_entry(title='footerMainText').text | markdown}}
+    </div>
+
+    <div class="row footer__row">
+        <div class="col-md-6 general_text">
+            {% set footerContactTitle = adapter.get_entry(title='footerContactTitle')  %}
+            {{macros.edit_button(footerContactTitle)}}
+            {{footerContactTitle.text | markdown}}
+
+            {% set footerContactText = adapter.get_entry(title='footerContactText') %}
+            {{macros.edit_button(footerContactText)}}
+            {{footerContactText.text | markdown}}
+        </div>
+        <div class="col-md-6">
+            <div class="footer__social">
+                <a href="https://www.facebook.com/kompisbyran" class="footer__social__facebook">
+                    <img src="{{ url_for('static', filename='images/facebook.svg') }}" />
+                </a>
+                <a href="https://www.twitter.com/kompisbyran" class="footer__social__twitter">
+                    <img src="{{ url_for('static', filename='images/twitter.svg') }}" />
+                </a>
+                <a href="https://www.instagram.com/kompisbyran" class="footer__social__instagram">
+                    <img src="{{ url_for('static', filename='images/instagram.svg') }}" />
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endcall %}

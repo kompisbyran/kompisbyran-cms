@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% if features['gallery'] %}
+<section>
+    <section class="gallery gallery__background container">
+        <h1 class="gallery__title">
+            {{macros.edit_button(adapter.get_entry(title='galleryTitle'))}}
+            {{ adapter.get_entry(title='galleryTitle').text }}</h1>
+        <div class="gallery__text">
+            {{macros.edit_button(adapter.get_entry(title='galleryText'))}}
+            {{ adapter.get_entry(title='galleryText').text | markdown }} </div>
+    </section>
+
+    <section class="gallery__container container">
+        <div class="gallery__triangle"></div>
+        {{ macros.edit_button(adapter.get_entry(title='gallerySubTitle')) }}
+        <h1 class="gallery__subtitle">
+            {{ adapter.get_entry(title='gallerySubTitle').text }}</h1>
+
+        <div class="gallery__meetup_container">
+            {% for meetup in meetups %}
+                <div class="gallery__meetup">
+                    <a href="#" class="gallery__meetup_link" data-toggle="modal" data-target="#{{meetup.id}}">
+                        {{ macros.get_meetup(meetup, False) }}
+                    </a>
+                </div>
+                {{ macros.meetup_modal(meetup) }}
+            {% endfor %}
+        </div>
+
+    </section>
+
+</section>
+
+
+{% endif %}
+{% endblock  %}

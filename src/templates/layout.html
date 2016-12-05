@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% import "macros.html" as macros with context %}
+
+<head>
+  {% block head %}
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Kompisbyrån</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" ></script>
+  <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}" ></script>
+  <link rel="icon" href="{{adapter.get_entry(title='favicon').image.url}}">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Droid+Serif|Fauna+One|Merriweather" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main' + hash_data + '.css') }}">
+
+  {% endblock %}
+</head>
+<body>
+
+  <!-- Preview Mode -->
+  <!--
+  {% if preview %}
+  <div class="preview__padding"></div>
+  <div class="preview preview__header navbar-fixed-top">
+    <span class="preview__label"> Kompisbyran - This is a preview </span>
+    <button class="preview__button transparent" onClick="window.close();">
+        <span class="icomoon-close"></span>
+        <span>Exit preview</span>
+    </button>
+  </div>
+  {% endif %}-->
+
+  <!-- Header -->
+  {% include 'header.html' %}
+
+
+  <!-- Content -->
+  <section class="content">
+    {% block content %}
+
+    {% endblock %}
+    {{macros.language_modal(adapter.languages, adapter.user_language)}}
+  </section>
+
+
+  <!-- Footer -->
+  {% if features['footer']  %}
+  {% include 'footer.html' %}
+  {% endif %}
+
+  {% if preview %}
+  <div class="preview__padding"></div>
+  <div class="preview preview__footer navbar-fixed-bottom">
+    This is a preview
+  </div>
+  {% endif %}
+
+  {% if adminMode %}
+  <div class="admin-mode__padding"></div>
+  <div class="admin-mode admin-mode__footer navbar-fixed-bottom">
+      Admin mode
+      <a class="admin-mode__button general_button" href="/logout">Logout</a>
+  </div>
+  {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+{% if features['hero'] %}
+    {{ macros.hero() }}
+{% endif %}
+
+{% if features['sponsor_banner'] %}
+    {{ macros.sponsor_banner() }}
+{% endif %}
+
+{% if features['news'] %}
+    {{ macros.news_feed() }}
+{% endif %}
+
+{% if features['campaign'] %}
+    {{ macros.campaign() }}
+{% endif  %}
+
+{% if features['guide'] %}
+    {{ macros.guide(guide) }}
+{% endif %}
+
+{% if features['faq'] %}
+  {{ macros.faq(faq_list) }}
+{% endif %}
+
+{% if features['number_of_matches'] %}
+    {{macros.number_of_matches()}}
+{% endif %}
+
+{% if features['meetup_feed'] %}
+    {{macros.meetup_feed(meetups)}}
+{% endif %}
+
+{% if features['support_us'] %}
+    {{macros.support_us()}}
+{% endif %}
+
+{% endblock  %}

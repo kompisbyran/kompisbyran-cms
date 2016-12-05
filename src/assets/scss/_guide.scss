@@ -1,0 +1,77 @@
+
+//colors
+$color_peach: rgba(222, 115, 106, 0.5);
+$color_neptune_50: rgba(113, 187, 192, 0.5);
+$color_purple_50: rgba(132, 86, 145, 0.5);
+
+
+
+.how-it-work {
+
+    text-align: center;
+
+    &__title{
+        /*font-family: $font_amatic;
+        font-weight: bold;
+        color: $color_dark_neptune;*/
+    }
+
+    &__text{
+        @include min-device-width($mobile_width_threshold){
+        width: 40%;
+        }
+        @include max-device-width($mobile_width_threshold) {
+        width: 80%;
+        }
+        margin: auto;
+    }
+
+    &__content{
+        margin-top: 30px;
+        padding-bottom: 30px;
+    }
+}
+
+.guide {
+    width: 65vw;
+    max-width: 936px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.step {
+        margin-top: 40px;
+        flex-basis: 18%;
+        min-width: 130px;
+        margin-left: 25px;
+        margin-right: 25px;
+
+        &__image{
+            width: 70px;
+            margin-top: 3px;
+
+            &container{
+                background-color: $color_neptune_50;
+                height: 75px;
+                width: 75px;
+                margin: auto;
+                border-radius: 50%;
+
+            }
+
+        }
+
+        &:nth-child(2) > .step__imagecontainer{
+            background-color: $color_grey;
+        }
+
+        &:nth-child(3) > .step__imagecontainer{
+            background-color: $color_purple_50;
+        }
+
+        &:nth-child(4) > .step__imagecontainer{
+            background-color: $color_peach;
+        }
+    }

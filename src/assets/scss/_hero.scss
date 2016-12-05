@@ -1,0 +1,159 @@
+$color_white_opaque: rgba(255,255,255, 0.9);
+
+.hero{
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+
+    &__image{
+        @include min-device-width($tablet_width_threshold){
+            width: 100vw;
+            max-width: 1440px;
+        }
+        @include max-device-width($tablet_width_threshold - 1) {
+            height: 450px;
+        }
+        @include max-device-width($mobile_width_threshold){
+            height: 70vw;
+        }
+
+    }
+
+    @include max-device-width($tablet_width_threshold - 1) {
+        &__container{
+            position: absolute;
+            top: 0px;
+            display: block;
+            z-index: 1000;
+
+            width: 70%;
+            margin-left: 15%;
+            margin-top: 5%;
+
+            @include min-device-width($mobile_width_portrait){
+                height: 75%;
+            }
+            @include max-device-width($mobile_width_portrait - 1){
+                height: 85%                
+            }
+
+            background-color: $color_white_opaque;
+
+
+            text-align: center;
+        }
+    }
+
+    @include min-device-width($tablet_width_threshold){
+        &__container{
+            position: absolute;
+            top: 60px;
+            right: 0px;
+            z-index: 1000;
+
+            text-align: center;
+            margin: 10px 5%;
+            width: 44vw;
+            max-width: 500px;
+        }
+    }
+
+
+    &__overlay{
+        @include max-device-width($tablet_width_threshold - 1) {
+            display: none;
+        }
+        position: absolute;
+        top: -100px;
+        right: 60px;
+        height: 200%;
+        width: 50vw;
+        max-width: 600px;
+        background-color: white;
+        opacity: 0.9;
+        @include rotate(10deg);
+    }
+
+    &__title{
+        margin: 10px auto;
+        @include max-device-width($tablet_width_threshold - 1) {
+            margin: 8% 5% 5% 5%;
+        }
+        @include max-device-width($mobile_width_threshold - 1){
+            margin-top: 15vw;
+        }
+        @include max-device-width($mobile_width_portrait){
+            margin-top: 5vw;
+            margin-bottom: 0;
+        }
+        @include max-device-width($mobile_width_small_portrait){
+            font-size: 32px;
+        }
+    }
+
+    &__text{
+        z-index: 1100;
+        @include max-device-width($tablet_width_threshold - 1) {
+            margin: 5% 15%;
+        }
+        @include max-device-width($mobile_width_threshold - 1) {
+            display: none;
+        }
+        @include min-device-width($tablet_width_threshold) {
+            margin-top: 0;
+        }
+
+    }
+
+    &__button{
+        &-desktop{
+            @include max-device-width($tablet_width_threshold - 1){
+                display: none;
+            }
+            font-size: 18px !important;
+            display: inline-block;
+        }
+        &-mobile{
+            @include min-device-width($tablet_width_threshold){
+                display: none;
+            }
+            font-size: 18px !important;
+            margin-top: 5px !important;
+            display: inline-block;
+        }
+
+
+
+    }
+
+
+    &__arrow{
+        @include max-device-width($tablet_width_threshold - 1){
+            display: none;
+        }
+        position: absolute;
+        top: 220px;
+        right: 0px;
+        width: 70px;
+    }
+
+    &__bun{
+        @include max-device-width($tablet_width_threshold - 1){
+            display: none;
+        }
+        position: absolute;
+        top: 250px;
+        right: 100%;
+        width: 50px;
+    }
+
+    &__smiley{
+        @include max-device-width($tablet_width_threshold - 1){
+            display: none;
+        }
+        position: absolute;
+        top: 280px;
+        right: 85%;
+        width: 40px;
+    }
+}

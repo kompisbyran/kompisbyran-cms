@@ -1,0 +1,9 @@
+beautifulsoup4
+coverage
+Flask
+Flask-Markdown
+Flask_Testing
+mock
+nose
+requests
+yapf

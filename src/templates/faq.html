@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% if features['friend_page'] %}
+
+<section class="faq_page">
+    {% set questions = adapter.get_entries(content_type='question') %}
+    <div class="general_page__background container">
+        {% set title = adapter.get_entry(title='FAQ') %}
+        <h1 class="general_page__title">
+            {{macros.edit_button(title)}}
+            {{title.text}}
+        </h1>
+        <div class="general_page__text">
+            {% set text = adapter.get_entry(title='FAQ-pageText') %}
+            {{macros.edit_button(text)}}
+            {{text.text|markdown}}
+        </div>
+        <section class="faq_list">
+            {% set categories = adapter.get_entry(title='FAQ-categories') %}
+            <h2>{{macros.edit_button(categories)}} {{categories.text}} </h2>
+            
+            {% if questions | length > 0 %}
+            {% call macros.editor_panel_list(questions[0], 'questions', 'Edit FAQ') %}
+            {% for key in q_dict %}
+            {% call macros.read_more_white(key) %}
+            <ul>
+                {% for question in q_dict[key] %}
+                <li class="faq_list__question">
+                    <h2 class="faq_list__question">{{question.question}}</h2>
+                    <br />
+                    <p class="faq_list__answer">{{question.answer}}</p>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endcall %}
+            {% endfor %}
+            {% endcall %}
+            {% endif %}
+        </section>
+        <section class="faq_page__text">
+            {% set title2 = adapter.get_entry(title='FAQ-answerOnQuestion') %}
+            {% set text2 = adapter.get_entry(title='FAQ-pageSecondText') %}
+            <h2>{{macros.edit_button(title2)}}{{title2.text}}</h2>
+            {{macros.edit_button(text2)}}{{text2.text|markdown}}
+        </section>
+    </div>
+</section>
+{% endif %}
+{% endblock  %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% if features['news_page'] %}
+{% call macros.editor_panel_list(news_item, "news", "Edit news") %}
+<div class="news">
+    <img class="news__image" src="{{news_item.picture.url}}" />
+    <div class="news__background">
+        <h1 class="news__title"> {{ news_item.title }} </h1>
+        <div class="news__text">
+            <p>
+                {{news_item.text}}
+            </p>
+            {% if news_item.longText %}
+                {{news_item.longText | markdown}}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endcall %}
+{% endif %}
+{% endblock  %}

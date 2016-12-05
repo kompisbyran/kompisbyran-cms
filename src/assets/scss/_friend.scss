@@ -1,0 +1,95 @@
+@import 'common';
+.friend {
+    &__image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+    &__background {
+        background-image: url(/static/images/left-wreath-grey.svg), url(/static/images/right-wreath-grey.svg);
+        background-repeat: no-repeat, no-repeat;
+        background-position: left top, right top;
+        background-size: 25%;
+        margin: 3em auto;
+        @include max-device-width($tablet_width_threshold) {
+            margin: 3em 1em;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            padding-top: 80px;
+            margin: 2em 0;
+            background-size: 40%;
+        }
+    }
+    &__content {
+        @include flexbox();
+        @include flex_direction(row);
+        margin: 3em 4em;
+        @include max-device-width($mobile_width_threshold) {
+            margin: 2em 2em;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            margin: 2em 1.5em;
+            @include flex_direction(column);
+        }
+    }
+    &__title {
+        text-align: center;
+        max-width: 45%;
+        margin: auto;
+    }
+    &__text {
+        flex-grow: 1.1;
+        margin: 0 1em;
+        @include max-device-width($mobile_width_threshold) {
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+    }
+    &__button {
+        width: 100%;
+        text-align: center;
+        padding-top: 1em;
+        margin-bottom: 2em;
+    }
+    &__panel {
+        flex-grow: 1;
+        margin-left: 2.5em;
+        @include max-device-width($mobile_width_threshold) {
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+    }
+
+    &__side_image_div {
+        border-radius: 20px;
+        width: 300px;
+        overflow: hidden;
+        @include max-device-width($mobile_width_threshold) {
+            width: 100%;
+        }
+    }
+    &__side_video {
+        @include max-device-width(400px) {
+            margin-left: -30px;
+        }
+        @include max-device-width(380px) {
+            margin-left: -50px;
+        }
+    }
+
+    &__meetup {
+        width: 350px;
+        padding-bottom: 50px;
+        @include shadow($shadow_v_standard, $shadow_h_standard, $shadow_blur_standard, $shadow_color);
+        @include min-device-width($desktop_width_threshold) {
+            position: relative;
+        }
+        @include max-device-width($mobile_width_threshold) {
+            width:100%;
+        }
+    }
+
+    &__campaign {
+        margin: 2em;
+    }
+}

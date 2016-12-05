@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<p style="padding-top: 20px;">
+    {% if error_msg %}
+        {{error_msg}}
+    {% else %}
+        404 error: Page not found!
+    {% endif %}
+</p>
+{% endblock  %}
