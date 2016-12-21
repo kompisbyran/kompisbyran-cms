@@ -363,11 +363,11 @@
 
 {% macro read_more_white(text) %}
     <section>
-        <button class="faq_list__button collapsed dropdown-toggle" type="button" data-toggle="collapse" data-target="#{{'collapsable' + text}}" aria-expanded="false">
+        <button class="faq_list__button collapsed dropdown-toggle" type="button" data-toggle="collapse" data-target="#{{'collapsable' + text | replace(' ', '')}}" aria-expanded="false">
             <div class="faq_list__button__text">{{text}}</div>
             <div class="faq_list__button__caret_div"><span class="icomoon-caret faq_list__button__caret"></span></div>
         </button>
-        <div class="read-more__content collapse" id="{{'collapsable' + text}}">
+        <div class="read-more__content collapse" id="{{'collapsable' + text | replace(' ', '')}}">
             {{ caller() }}
         </div>
     </section>

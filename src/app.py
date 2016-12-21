@@ -176,10 +176,15 @@ def faq(entry_id=None):
 
     questions = ContentfulAdapter.get_entries(content_type='question')
 
-    q_dict = defaultdict(list)
+    q_dict = {}
     for question in questions:
         category = question.category.rstrip().lstrip()
-        q_dict[category].append(question)
+        print "question"
+        if category in q_dict:
+            q_dict[category].append(question)
+        else:
+            print category
+            q_dict[category] = [question]
 
     data_dictionary.update(locals())
     return render_template('faq.html', **data_dictionary)
